@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.8</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>my_tests</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>my_tests</name>
+	<description>Testing and messing around project for Spring Boot</description>
+	<properties>
+		<java.version>11</java.version>
+		<commons.version>1.0.0</commons.version>
+		<arcgis.version>200.1.0</arcgis.version>
+	</properties>
+	<repositories>
+		<repository>
+			<id>arcgis</id>
+			<url>https://esri.jfrog.io/artifactory/arcgis</url>
+		</repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.quartz-scheduler</groupId>
+					<artifactId>quartz</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+		<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
+		<exclusions>
+			<exclusion>
+				<groupId>org.junit.vintage</groupId>
+				<artifactId>junit-vintage-engine</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.azure</groupId>
+			<artifactId>azure-identity</artifactId>
+			<version>1.7.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.azure</groupId>
+			<artifactId>azure-storage-blob</artifactId>
+			<version>12.20.1</version>
+			<scope>compile</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>2.2.8</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+
+		<!--	Esri dependecies	-->
+
+
+		<!--JavaFX dependencies -->
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>17.0.2</version>
+		</dependency>
+		<!--ArcGIS dependencies -->
+		<dependency>
+			<groupId>com.esri.arcgisruntime</groupId>
+			<artifactId>arcgis-java</artifactId>
+			<version>${arcgis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esri.arcgisruntime</groupId>
+			<artifactId>arcgis-java-jnilibs</artifactId>
+			<version>${arcgis.version}</version>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>com.esri.arcgisruntime</groupId>
+			<artifactId>arcgis-java-resources</artifactId>
+			<version>${arcgis.version}</version>
+			<type>zip</type>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+        </dependency>
+
+
+		<!--Conflict with log4j2 because both use slf4j -->
+		<!--SLF4J dependencies-->
+<!--		<dependency>-->
+<!--			<groupId>org.slf4j</groupId>-->
+<!--			<artifactId>slf4j-nop</artifactId>-->
+<!--			<version>1.7.32</version>-->
+<!--		</dependency>-->
+
+
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>aws-sdk-java</artifactId>
+			<version>2.20.139</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+<!--	ESRI Plugins	-->
+
+			<plugin>
+				<groupId>io.takari</groupId>
+				<artifactId>maven</artifactId>
+				<version>0.7.4</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>com.mycompany.app.App</mainClass>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<release>11</release>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<artifactItems>
+						<artifactItem>
+							<groupId>com.esri.arcgisruntime</groupId>
+							<artifactId>arcgis-java-jnilibs</artifactId>
+							<version>${arcgis.version}</version>
+							<type>zip</type>
+							<overWrite>false</overWrite>
+							<outputDirectory>${user.home}/.arcgis/${arcgis.version}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.esri.arcgisruntime</groupId>
+							<artifactId>arcgis-java-resources</artifactId>
+							<version>${arcgis.version}</version>
+							<type>zip</type>
+							<overWrite>false</overWrite>
+							<outputDirectory>${user.home}/.arcgis/${arcgis.version}</outputDirectory>
+						</artifactItem>
+					</artifactItems>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

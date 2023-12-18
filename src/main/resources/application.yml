@@ -1,0 +1,170 @@
+env:
+  name: LOCAL # name can be: LOCAL, DEV, TEST, PROD
+  customer: ASSET # customer can be: ACC-CORE, ACC-SOPHIA, F2M
+
+server:
+  port: 8080
+  basepath: ""
+  hostname:
+  ssl.enabled: false
+  error:
+    include-message: always
+    include-stacktrace: never
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: '/v3/api-docs'
+  swagger-ui:
+    path: '/swagger-ui'
+    config-url: '${server.basepath}/v3/api-docs/swagger-config'
+    url: '${server.basepath}/v3/api-docs'
+    disable-swagger-default-url: true
+
+logging:
+  group:
+    tomcat: org.apache.catalina, org.apache.coyote, org.apache.tomcat
+    mongo: org.mongodb.driver
+    http: org.apache.http
+  level:
+    root: info
+    tomcat: info
+    mongo: info
+    http: info
+
+#docker-secret.bind-path: ${secrets.mount}
+management:
+  endpoint:
+    health:
+      show-details: always
+
+mongo:
+  protocol: mongodb
+  user: Stefano
+  pass: admin
+  cluster: ac-2qqfx07-shard-00-00.qg6gekc.mongodb.net:27017,ac-2qqfx07-shard-00-01.qg6gekc.mongodb.net:27017,ac-2qqfx07-shard-00-02.qg6gekc.mongodb.net:27017
+  dbname: User
+  properties: replicaSet=atlas-7r5l3b-shard-0&authSource=admin&retryWrites=false
+
+database:
+  connection: mongodb://Stefano:admin@ac-2qqfx07-shard-00-00.qg6gekc.mongodb.net:27017,ac-2qqfx07-shard-00-01.qg6gekc.mongodb.net:27017,ac-2qqfx07-shard-00-02.qg6gekc.mongodb.net:27017/?ssl=true&replicaSet=atlas-7r5l3b-shard-0&authSource=admin&retryWrites=true&w=majority
+  name: User
+
+############
+### URLs ###
+############
+
+#External endpoint  
+endpoint:
+  #chargepointmanager: http://localhost:8080
+  chargingsessionmanager: http://localhost:8081
+  #evse: http://localhost:8082
+  ocpi: http://localhost:8083
+  notificationmanager: http://localhost:8084
+  #ocpi22: http://localhost:8085
+  ocpp16: http://localhost:8086
+  ocppbridge: http://localhost:8087
+  #ocppprotocoldispatcher: http://localhost:8088
+  #reservationmanager: http://localhost:8089
+  #rfidmanager: http://localhost:8090
+  #roamingmanager: http://localhost:8091
+  usermanager: http://localhost:8092
+  fotamanager: http://localhost:8093
+  #tcmanager: http://localhost:8094
+  oicp: http://localhost:8095
+  oicp23: http://localhost:8095
+  tariffmanager: http://localhost:8096
+  crmmanager: http://localhost:8097
+  #batchmanager: http://localhost:8098
+  cpomanager: http://localhost:8099
+
+ocpp:
+  heartbeat: 120 #seconds
+
+ocpi:
+  countrycode: XX
+  partyid: ACC
+  url: ${endpoint.ocpi}
+
+url.chnet:
+  usermanager:
+    userexist: ${endpoint.usermanager}/user-manager/v1/users/exist
+    getidtag: ${endpoint.usermanager}/user-manager/v1/users
+    getsites: ${endpoint.usermanager}/web-user-manager/sites
+    general: ${endpoint.usermanager}/user-manager/v1/users/
+    webuser.get: ${endpoint.usermanager}/web-user-manager/getUser
+  cs:
+    getAllChargingSessions: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/sessions
+    chargingSessionFilter: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/chargingsessions/filter
+    getAverageSessions: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/chargingsessions/average
+    getSessions: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/chargingsessions/param
+    returnBasicSessionData: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/chargingsessions
+    getChargingSessionHistory: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/chargingsessions/getChargingSessionHistory
+    getEnergyPerChargePoint: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/sessions/energy
+    putEnergyPerChargePoint: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/sessions/energy
+    getSessionsFieldsForTimeRange: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/sessions/fields
+    addEventInSessions: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/sessions
+    updatePartialChargingSession: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/sessions
+    getSessionsForMidReport: ${endpoint.chargingsessionmanager}/chargingsession-manager/v1/chargingsessions/getSessionsForMidReport
+  ocpp.bridge.calloperation: ${endpoint.ocppbridge}/ocpp-bridge/v1/operations
+  notificationmanager:
+    saveNotificationRequest: ${endpoint.notificationmanager}/notification-manager/v1/notification/save
+    notifyToUser: ${endpoint.notificationmanager}/notification-manager/v1/notification/notify/users
+    pushNotifications: ${endpoint.notificationmanager}/notification-manager/v1/notification/push
+    updateNotifications: ${endpoint.notificationmanager}/notification-manager/v1/notification/{userId}/update/notifications
+    getNotifications: ${endpoint.notificationmanager}/notification-manager/v1/notification/{userId}/notifications
+  tariffmanager:
+    getTariffByTariffId: ${endpoint.tariffmanager}/tariff/v1/tariff
+    putTariff: ${endpoint.tariffmanager}/tariff/v1/tariff/
+  crmmanager:
+    createasset: ${endpoint.crmmanager}/crm-manager/v1/asset
+    dissociateasset: ${endpoint.crmmanager}/crm-manager/v1/asset/disable
+  cpomanager:
+    getCpo: ${endpoint.cpomanager}/cpo-manager/v1/corporate/cpo
+    getLocation: ${endpoint.cpomanager}/cpo-manager/v1/corporate/location
+    locationCheck: ${endpoint.cpomanager}/cpo-manager/v1/location/check
+
+
+mongock:
+  migration-scan-package:
+    - com.accenture.chnet.chargepointmanager.dbmigrations
+  metadata:
+    env: ${env.name}
+    customer: ${env.customer}
+  transaction-enabled: false
+
+
+aws:
+  region: eu-central-1
+  basequeueurl: http://localhost:9324/queue/
+  queuenameprefix: ChNet
+  s3:
+    tomtom:
+      bucket: "chnet-bucket"
+      directory: "BoschPOI/"
+    bucket:
+      athena.query: ""
+  local:
+    path: ""
+    profile: ""
+  role:
+    arn: ""
+    session.name: chargepointmanager
+  web.identity.token.file: ""
+  glue:
+    db.protocolmessages.name: "glue.db-name"
+    table.ocppmessages.name: "ocpp-table"
+  athena:
+    query:
+      retry:
+        number: 10
+        interval: 500 #milliseconds
+
+
+crm.enablefunctionalities : true
+
+google.key.reverseGeoCoding.client : AIzaSyD2FuBu_QUlF3NAZPmfVEVr4FA0WRAHdMQ
+google.key.reverseGeoCoding.internal : AIzaSyD2FuBu_QUlF3NAZPmfVEVr4FA0WRAHdMQ
+
+connect:
+  sqs: true
