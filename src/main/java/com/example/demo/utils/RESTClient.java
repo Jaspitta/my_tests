@@ -36,13 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-/**
- * This class can be used each time it is necessary to invoke a REST web
- * service.
- *
- * @author michele.vigilante
- * @version 1.0
- */
+
 public class RESTClient<T, V> {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(

@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 
-@Configuration
+//@Configuration
 public class MongoConfig extends AbstractMongoClientConfiguration {
   @Value("${database.name}")
   private String dbName;
@@ -25,7 +25,7 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
 
   @Override
   public MongoClient mongoClient() {
-    ConnectionString connectionString = new ConnectionString("mongodb://root:PUN%21dev%23pwd1@localhost:27022/?authSource=admin&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false&directConnection=true&ssl=false");// To restore
+    ConnectionString connectionString = new ConnectionString("");
     return MongoClients.create(connectionString);
   }
 

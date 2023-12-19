@@ -11,27 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * @author calogero.corbo
- * <p>
- * This class references images related to a EVSE in terms of a file name or url.
- * According to the roaming connection between one EVSE Operator and one or more
- * Navigation Service Providers the hosting or file exchange of image payload data
- * has to be defined. The exchange of this content data is out of scope of OCHP.
- * However, the recommended setup is a public available web server hosted and updated
- * by the EVSE Operator. Per charge point an unlimited number of images of each type
- * is allowed. Recommended are at least two images where one is a network or provider
- * logo and the second is a station photo. If two images of the same type are defined
- * they should be displayed additionally, not optionally.
- * <p>
- * Photo Dimensions: The recommended dimensions for all photos is a minimum of 800 pixels
- * wide and 600 pixels height. Thumbnail representations for photos should always have
- * the same orientation as the original with a size of 200 to 200 pixels.
- * <p>
- * Logo Dimensions: The recommended dimensions for logos are exactly 512 pixels wide and
- * 512 pixels height. Thumbnail representations for logos should be exactly 128 pixels
- * in width and height. If not squared, thumbnails should have the same orientation as the original.
- */
 @Data
 @JsonInclude(value = Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
