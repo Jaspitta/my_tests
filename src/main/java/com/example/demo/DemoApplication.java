@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.tests.InternalLoggingAnnotations;
 import com.example.demo.tests.ValidationAnnotations;
 import com.example.demo.utils.RESTClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -116,12 +117,9 @@ public class DemoApplication {
 
         SpringApplication.run(DemoApplication.class, args);
 
-        var testable = ValidationAnnotations.builder()
-                .objStn("{\"listOfFoes\":[{\"name\": null,\"surname\": null}, {}, null],\"some\":null}")
-                .clazz(Foo.class)
-                .build();
+        var test = InternalLoggingAnnotations.builder().build();
 
-        testable.testValidation();
+        test.test("String passed as param");
 
     }
 
